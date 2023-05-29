@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { IsNotEmpty, ValidateNested } from 'class-validator';
 import { CreateServiceDto } from './create-service.dto';
 import { UpdateServiceDto } from './update-service.dto';
@@ -6,6 +6,7 @@ import { DeleteServiceDto } from './delete-service.dto';
 import { EventDto } from './event.dto';
 
 export class KafkaServiceDto {
+  @Expose()
   @Type(() => EventDto, {
     discriminator: {
       property: 'eventType',

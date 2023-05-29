@@ -19,6 +19,7 @@ const event_dto_1 = require("./event.dto");
 class KafkaServiceDto {
 }
 __decorate([
+    (0, class_transformer_1.Expose)(),
     (0, class_transformer_1.Type)(() => event_dto_1.EventDto, {
         discriminator: {
             property: 'eventType',

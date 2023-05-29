@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ServicesController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
+const kafka_service_dto_1 = require("./dto/kafka-service.dto");
 const create_service_dto_1 = require("./dto/create-service.dto");
 const update_service_dto_1 = require("./dto/update-service.dto");
 const event_emitter_1 = require("@nestjs/event-emitter");
@@ -23,7 +24,7 @@ let ServicesController = class ServicesController {
     constructor(eventEmitter) {
         this.eventEmitter = eventEmitter;
     }
-    serviceEvent(value) {
+    serviceEvent({ value }) {
         common_1.Logger.debug(value, 'ServicesController - serviceEvent');
         this.eventEmitter.emit(value.eventType, value);
     }
@@ -41,7 +42,7 @@ __decorate([
     (0, microservices_1.EventPattern)('services'),
     __param(0, (0, microservices_1.Payload)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_service_dto_1.CreateServiceDto]),
+    __metadata("design:paramtypes", [kafka_service_dto_1.KafkaServiceDto]),
     __metadata("design:returntype", void 0)
 ], ServicesController.prototype, "serviceEvent", null);
 __decorate([

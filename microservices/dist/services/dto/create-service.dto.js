@@ -16,10 +16,6 @@ const mapped_types_1 = require("@nestjs/mapped-types");
 class CreateServiceDto extends (0, mapped_types_1.PartialType)(event_dto_1.EventDto) {
 }
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
-], CreateServiceDto.prototype, "id", void 0);
-__decorate([
     (0, class_validator_1.MaxLength)(64),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

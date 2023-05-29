@@ -12,7 +12,7 @@ export class ServicesController {
   constructor(private eventEmitter: EventEmitter2) {}
 
   @EventPattern('services')
-  serviceEvent(@Payload(new ValidationPipe()) value : CreateServiceDto) {
+  serviceEvent(@Payload(new ValidationPipe()) { value }: KafkaServiceDto) {
     Logger.debug(value, 'ServicesController - serviceEvent');
     this.eventEmitter.emit(value.eventType, value);
   }

@@ -3,10 +3,6 @@ import { EventDto } from './event.dto';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateServiceDto extends PartialType(EventDto) {
-
-  @IsNotEmpty()
-  id?: number;
-
   @MaxLength(64)
   @IsString()
   @IsNotEmpty()

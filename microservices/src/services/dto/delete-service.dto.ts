@@ -4,5 +4,5 @@ import { EventDto } from './event.dto';
 
 export class DeleteServiceDto extends PartialType(EventDto) {
   @IsNotEmpty()
-  id?: number;
+  id: number;
 }

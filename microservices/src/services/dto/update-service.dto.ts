@@ -4,5 +4,5 @@ import { IsNotEmpty } from 'class-validator';
 
 export class UpdateServiceDto extends PartialType(CreateServiceDto) {
   @IsNotEmpty()
-  id?: number;
+  id: number;
 }
