@@ -14,15 +14,21 @@ async function bootstrap() {
         },
         consumer: {
           groupId: `microservices-${Math.floor(Math.random() * 100)}`,
+          retry: {
+            retries: 0
+          }
         },
       },
     },
   );
   app.useGlobalPipes(new ValidationPipe({
     exceptionFactory: (validationErrors: ValidationError[] = []) => {
+      //console.log(JSON.stringify(validationErrors))
       console.log(validationErrors)
     },
   }))
   app.listen();
 }
 bootstrap();
+
+

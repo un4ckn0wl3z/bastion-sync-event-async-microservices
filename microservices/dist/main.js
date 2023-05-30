@@ -13,6 +13,9 @@ async function bootstrap() {
             },
             consumer: {
                 groupId: `microservices-${Math.floor(Math.random() * 100)}`,
+                retry: {
+                    retries: 0
+                }
             },
         },
     });

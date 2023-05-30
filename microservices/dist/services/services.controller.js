@@ -12,7 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ServicesController = void 0;
+exports.ServicesController = exports.CustomValidationPipe = exports.ParserDecorator = exports.CreateMessageContextGuard = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const kafka_service_dto_1 = require("./dto/kafka-service.dto");
@@ -20,6 +20,50 @@ const create_service_dto_1 = require("./dto/create-service.dto");
 const update_service_dto_1 = require("./dto/update-service.dto");
 const event_emitter_1 = require("@nestjs/event-emitter");
 const delete_service_dto_1 = require("./dto/delete-service.dto");
+function removePropertiesExcept(obj, propertyToKeep) {
+    for (let key in obj) {
+        if (key !== propertyToKeep) {
+            delete obj[key];
+        }
+    }
+}
+let CreateMessageContextGuard = class CreateMessageContextGuard {
+    canActivate(context) {
+        if (context.getType() == 'rpc') {
+            const data = context.switchToRpc().getData();
+            const cloned = JSON.parse(JSON.stringify(data));
+            data.value = cloned;
+            removePropertiesExcept(data, 'value');
+            return true;
+        }
+    }
+};
+CreateMessageContextGuard = __decorate([
+    (0, common_1.Injectable)()
+], CreateMessageContextGuard);
+exports.CreateMessageContextGuard = CreateMessageContextGuard;
+exports.ParserDecorator = (0, common_1.createParamDecorator)((targets, ctx) => {
+    let data = ctx.switchToRpc().getData();
+    if (typeof (data) == 'string') {
+        return {
+            value: JSON.parse(data)
+        };
+    }
+    else {
+        return {
+            value: data
+        };
+    }
+});
+let CustomValidationPipe = class CustomValidationPipe {
+    transform(value, metadata) {
+        return value;
+    }
+};
+CustomValidationPipe = __decorate([
+    (0, common_1.Injectable)()
+], CustomValidationPipe);
+exports.CustomValidationPipe = CustomValidationPipe;
 let ServicesController = class ServicesController {
     constructor(eventEmitter) {
         this.eventEmitter = eventEmitter;

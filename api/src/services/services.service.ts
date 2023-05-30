@@ -40,9 +40,12 @@ export class ServicesService {
   }
 
   sendKafkaEvent(key, value) {
+    const data = {
+      value
+    }
     this.kafkaProducer.send({
       topic: 'services',
-      messages: [{ key, value: JSON.stringify(value) }],
+      messages: [{ key, value: JSON.stringify(data) }],
     });
   }
 }
